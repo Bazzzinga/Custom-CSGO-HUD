@@ -1,7 +1,7 @@
-const COLOR_CT = "rgba(87, 136, 168, 1.0)";
-const COLOR_T = "rgba(193, 149, 17, 1.0)";
-const COLOR_NEW_CT = "rgba(90, 184, 244, 1.0)";
-const COLOR_NEW_T = "rgba(240, 201, 65, 1.0)";
+const COLOR_CT = "rgba(70, 232, 41, 1.0)";
+const COLOR_T = "rgba(121, 43, 237, 1.0)";
+const COLOR_NEW_CT = "rgba(70, 232, 41, 1.0)";
+const COLOR_NEW_T = "rgba(121, 43, 237, 1.0)";
 const COLOR_RED = "rgba(242, 34, 34, 1.0)";
 const COLOR_MAIN_PANEL = "rgba(12, 15, 18, 0.75)";
 const COLOR_SUB_PANEL = "rgba(12, 15, 18, 0.6)";
@@ -792,10 +792,10 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
   let steamid = player.steamid;
   let team = player.team.toLowerCase();
   let obs_slot = observed.observer_slot;
-  let dead = stats.health == 0;
+  let dead = stats.health === 0;
   let health_color = stats.health <= 20 ? COLOR_RED : team == "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
   let alt_health_color = stats.health <= 20 ? COLOR_RED : team == "ct" ? COLOR_CT : COLOR_T;
-  let side_color = team == "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
+  let side_color = team === "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
 
   let $player = $("#" + side).find("#player" + (nr + 1));
 
@@ -808,12 +808,12 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
   $top.find("#player_alias_text").css("color", dead ? COLOR_WHITE_HALF : COLOR_WHITE);
 
   if (slot >= 1 && slot <= 5) {
-    $top.find("#player_alias_text").text(slot + "| " + player.name);
+    $top.find("#player_alias_text").text(slot + " " + player.name);
   } else {
-    if (slot == 10) {
-      $top.find("#player_alias_text").text(player.name + " |0");
+    if (slot === 10) {
+      $top.find("#player_alias_text").text(player.name + " 0");
     } else {
-      $top.find("#player_alias_text").text(player.name + " |" + slot);
+      $top.find("#player_alias_text").text(player.name + " " + slot);
     }
   }
 
@@ -832,13 +832,13 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     $bottom.find("#player_armor_image").css("opacity", 0);
     $top.find("#player_health_text").css("opacity", 0);
     $player.find(".player_dead").css("opacity", 1);
-    if (side.substr(8) == "left") {
-      $player.find("#player_alias_text").css("left", "-35px");
+    if (side.substr(8) === "left") {
+      //$player.find("#player_alias_text").css("left", "-35px");
       $player.find("#player_current_money_text").css("left", "-55px");
       $player.find("#player_skull").css("left", "-55px");
       $player.find("#player_round_kills_text").css("left", "-35px");
-    } else if (side.substr(8) == "right") {
-      $player.find("#player_alias_text").css("right", "-35px");
+    } else if (side.substr(8) === "right") {
+      //$player.find("#player_alias_text").css("right", "-35px");
       $player.find("#player_current_money_text").css("left", "65px");
       $player.find("#player_skull").css("right", "-55px");
       $player.find("#player_round_kills_text").css("right", "-35px");
@@ -848,12 +848,12 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     $bottom.find("#player_armor_image").css("opacity", 1);
     $top.find("#player_health_text").css("opacity", 1);
     $player.find(".player_dead").css("opacity", 0);
-    if (side.substr(8) == "left") {
+    if (side.substr(8) === "left") {
       $player.find("#player_alias_text").css("left", "0px");
       $player.find("#player_current_money_text").css("left", "1px");
       $player.find("#player_skull").css("left", "0px");
       $player.find("#player_round_kills_text").css("left", "20px");
-    } else if (side.substr(8) == "right") {
+    } else if (side.substr(8) === "right") {
       $player.find("#player_alias_text").css("right", "0px");
       $player.find("#player_current_money_text").css("left", "7px");
       $player.find("#player_skull").css("right", "0px");
@@ -879,7 +879,7 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     $player.find(".flashed").css("display", "none");
   }
 
-  if (slot == obs_slot) {
+  if (slot === obs_slot) {
     $player
       .find("#player_spec_bar")
       .css("background-color", side_color)
@@ -900,7 +900,7 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
   let armor_icon = $bottom.find("#player_armor_image");
   armor_icon.removeClass();
   if (stats.helmet) {
-    if (stats.armor == 0) {
+    if (stats.armor === 0) {
       // armor_icon.addClass("armor_none_default");
     } else if (stats.armor <= 50) {
       armor_icon.addClass("armor_half_helm_default");
@@ -908,7 +908,7 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
       armor_icon.addClass("armor_helm_default");
     }
   } else {
-    if (stats.armor == 0) {
+    if (stats.armor === 0) {
       // armor_icon.addClass("armor_none_default");
     } else if (stats.armor <= 50) {
       armor_icon.addClass("armor_half_default");
@@ -957,9 +957,9 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     let state = weapon.state;
     let view = "";
     let type = weapon.type;
-    if (type != "C4" && type != "Knife") {
+    if (type !== "C4" && type !== "Knife") {
       view += state == "active" ? "checked" : "holstered";
-      if (type == "Grenade") {
+      if (type === "Grenade") {
         for (let x = 0; x < weapon.ammo_reserve; x++) {
           let nade = {
             weapon: weapon.name.substr(7),
@@ -968,8 +968,8 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
           grenades.push(nade);
         }
       } else if (type) {
-        view += side.substr(8) == "right" ? " img-hor" : "";
-        if (type == "Pistol") {
+        view += side.substr(8) === "right" ? " img-hor" : "";
+        if (type === "Pistol") {
           $bottom
             .find("#player_weapon_secondary_img")
             .attr("src", "/files/img/weapons/" + name + ".png")
@@ -984,8 +984,8 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
         }
       }
     }
-    if (type == "C4") {
-      view = weapon.state == "active" ? "player_bomb_selected" : "player_bomb";
+    if (type === "C4") {
+      view = weapon.state === "active" ? "player_bomb_selected" : "player_bomb";
       $bottom.find("#player_bomb_kit_image").addClass(view);
     }
     if (!checkGuns(weapons)) {
@@ -998,12 +998,12 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     }
   }
 
-  if (team == "ct") {
-    if (teams.left.side == "ct") {
+  if (team === "ct") {
+    if (teams.left.side === "ct") {
       grenades = grenades.reverse();
     }
-  } else if (team == "t") {
-    if (teams.left.side == "t") {
+  } else if (team === "t") {
+    if (teams.left.side === "t") {
       grenades = grenades.reverse();
     }
   }
@@ -1052,14 +1052,14 @@ function bomb(time) {
 
 function resetBomb() {
   clearInterval(bomb_timer);
-  if (teams.left.side == "t") {
+  if (teams.left.side === "t") {
     $("#timers #bomb_bar").css("opacity", 0);
     $("#timers #defuse_bar").css("opacity", 0);
     $("#left_team #bomb_defuse #icon").css("opacity", 0);
     $("#left_team #bomb_defuse #kit_bar").css("opacity", 0);
     $("#right_team #bomb_defuse #icon").css("opacity", 0);
     $("#right_team #bomb_defuse #kit_bar").css("opacity", 0);
-  } else if (teams.right.side == "t") {
+  } else if (teams.right.side === "t") {
     $("#timers #bomb_bar").css("opacity", 0);
     $("#timers #defuse_bar").css("opacity", 0);
     $("#right_team #bomb_defuse #icon").css("opacity", 0);
@@ -1109,11 +1109,11 @@ function showAlertSlide(side, color, text) {
   $(side + " #alert #alert_text")
     .text(text)
     .css("color", color);
-  if (side == "#left_team") {
+  if (side === "#left_team") {
     $(side + " #alert")
       .css("opacity", 1)
       .addClass("animated fadeInRight");
-  } else if (side == "#right_team") {
+  } else if (side === "#right_team") {
     $(side + " #alert")
       .css("opacity", 1)
       .addClass("animated fadeInLeft");
@@ -1132,21 +1132,21 @@ function hideAlert(side) {
 
 function hideAlertSlide(side) {
   let element = side + " #alert";
-  if (side == "#left_team") {
+  if (side === "#left_team") {
     $(element).removeClass("animated fadeInRight");
-  } else if (side == "#right_team") {
+  } else if (side === "#right_team") {
     $(element).removeClass("animated fadeInLeft");
   }
-  if (side == "#left_team") {
+  if (side === "#left_team") {
     anim = "fadeOutRight";
-  } else if (side == "#right_team") {
+  } else if (side === "#right_team") {
     anim = "fadeOutLeft";
   }
   animateElement(element, anim, function () {
     $(element)
       .css("opacity", 0)
       .removeClass("animated")
-      .removeClass(side == "#left_team" ? "fadeOutRight" : "fadeOutLeft");
+      .removeClass(side === "#left_team" ? "fadeOutRight" : "fadeOutLeft");
   });
 }
 
@@ -1160,17 +1160,17 @@ function showMiddleAlert(pole_left_color, pole_right_color, text, text_color) {
 }
 
 function forceRemoveAlerts() {
-  if ($("#left_team #alert").css("opacity") == 1) {
+  if ($("#left_team #alert").css("opacity") === 1) {
     $("#left_team #alert")
       .css("opacity", 0)
       .removeClass();
   }
-  if ($("#right_team #alert").css("opacity") == 1) {
+  if ($("#right_team #alert").css("opacity") === 1) {
     $("#right_team #alert")
       .css("opacity", 0)
       .removeClass();
   }
-  if ($("#alert_middle").css("opacity") == 1) {
+  if ($("#alert_middle").css("opacity") === 1) {
     $("#alert_middle")
       .css("opacity", 0)
       .removeClass();
@@ -1212,7 +1212,7 @@ function checkPrev(previously, state) {
 }
 
 function hidePlayerStats(phase, previously) {
-  if (phase.phase == "live") {
+  if (phase.phase === "live") {
     if (previously.hasOwnProperty("phase_countdowns")) {
       if (previously.phase_countdowns.hasOwnProperty("phase_ends_in")) {
         if (previously.phase_countdowns.phase_ends_in >= 110 && phase.phase_ends_in <= 109.9) {

@@ -23,21 +23,30 @@ html
     link(rel='stylesheet', href=css)
     link(rel='stylesheet', href=anim)
   body
+    #ggbet
+      img#ggbet_img(src="/files/img/ess/ggbet_logo.png")
+    #bottom_logos
+      img#bottom_logos_img(src="/files/img/ess/bottom_logos.png")
     section
       #top_panel
         #left_team
-          #main TEAM NAME
           #logo
             img#team_logo
+          #main TEAM NAME
           #team_flag
-          #best_of
-            .bar
-            .block1
-            .block2
-            .block3
-            .block4
-            .block5
           #score 10
+          #best_of
+              .bar
+              .block1
+                .hexagon
+              .block2
+                .hexagon
+              .block3
+                .hexagon
+              .block4
+                .hexagon
+              .block5
+                .hexagon
           #alert
             #alert_text
               |ALERT TEXT
@@ -53,18 +62,23 @@ html
           #round_number
             |Round Number
         #right_team
-          #main TEAM NAME
           #logo
             img#team_logo
+          #main TEAM NAME
           #team_flag
-          #best_of
-            .bar
-            .block1
-            .block2
-            .block3
-            .block4
-            .block5
           #score 10
+          #best_of
+              .bar
+              .block1
+                .hexagon
+              .block2
+                .hexagon
+              .block3
+                .hexagon
+              .block4
+                .hexagon
+              .block5
+                .hexagon
           #alert
             #alert_pole_left
             #alert_text
@@ -145,9 +159,6 @@ html
           #box_top
             #box_img
               img#box_image
-            #box_main
-              #main_primary
-              #main_secondary
           #box_utility
             .box_heading
               #box_heading_text Utility Level
@@ -167,10 +178,12 @@ html
                 #util_nade_4_count x0
           #box_monetary
             .box_equip_value
+              .icon
               #equip_text Equipment Value
               #equip_value $41250
             .box_team_money
-              #money_text Team Money
+              .icon
+              #money_text Total
               #money_value $80000
             .loss_bonus
               .loss_boxes
@@ -186,14 +199,7 @@ html
               .player_side_bar
               .player_image_holder
                 img#player_image
-              .player_section_top
-                .player_health_bar
-                .player_health
-                  #player_health_text 100
-                .player_alias
-                  #player_alias_text 1| Player Name Here
-                .player_weapon_primary
-                  img#player_weapon_primary_img
+
               .player_section_bottom
                 .player_armor
                   #player_armor_image
@@ -211,6 +217,14 @@ html
                   #player_nade4
                 .player_weapon_secondary
                   img#player_weapon_secondary_img
+              .player_section_top
+                  .player_health_bar
+                  .player_health
+                    #player_health_text 100
+                  .player_alias
+                    #player_alias_text 1| Player Name Here
+                  .player_weapon_primary
+                    img#player_weapon_primary_img
               .player_hindered
                 .flashed
                   #flashed_level
@@ -483,12 +497,6 @@ html
                   #player_spent_text -$8450
       #players_right
         #box_section
-          #box_top
-            #box_img
-              img#box_image
-            #box_main
-              #main_primary
-              #main_secondary
           #box_utility
             .box_heading
               #box_heading_text Utility Level
@@ -508,10 +516,12 @@ html
                 #util_nade_4_count x0
           #box_monetary
             .box_equip_value
+              .icon
               #equip_text Equipment Value
               #equip_value $41250
             .box_team_money
-              #money_text Team Money
+              .icon
+              #money_text Total
               #money_value $80000
             .loss_bonus
               .loss_boxes

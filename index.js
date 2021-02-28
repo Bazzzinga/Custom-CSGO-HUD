@@ -34,7 +34,7 @@ const bodyParser = require("body-parser");
 function getFlags() {
   let flags = [];
   fs.readdirSync("./public/files/img/flags/").forEach(file => {
-    if (file.substr(-4, 4) == ".png") {
+    if (file.substr(-4, 4) === ".png") {
       flags.push(file.substr(0, file.indexOf(".png")));
     }
   });
@@ -192,7 +192,7 @@ server = http.createServer((req, res) => {
   res.writeHead(200, {
     "Content-Type": "text/html"
   });
-  if (req.method != "POST") {
+  if (req.method !== "POST") {
     return res.end("");
   }
   let body,
@@ -204,7 +204,7 @@ server = http.createServer((req, res) => {
   req.on("end", () => {
     body = Buffer.concat(bodyChunks);
     data = JSON.parse(body);
-    if (data.auth && data.auth.token == config.GSIToken) {
+    if (data.auth && data.auth.token === config.GSIToken) {
       recent_update = data;
       update(data);
     }
@@ -215,4 +215,7 @@ server = http.createServer((req, res) => {
 function update(json) {
   io.emit("update", json);
 }
+
+console.log(config);
+
 server.listen(config.GameStateIntegrationPort);
