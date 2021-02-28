@@ -1,5 +1,5 @@
 {
-  "GameStateIntegrationPort": 1337,
+  "GameStateIntegrationPort": 13337,
   "ServerPort": 2626,
   "SteamApiKey": "INSERT KEY HERE",
   "PrintPlayerData": false,
@@ -9,7 +9,7 @@
   "DisplayPlayerFlags": true,
   "AvatarDirectory": "./public/files/avatars/",
   "SpecialEvent": "SHOWMATCH",
-  "LeftImage": "/files/league/league.png",
+  "LeftImage": "/files/img/ess/league_logo.png",
   "LeftPrimary": "Primary League Text",
   "LeftSecondary": "Secondary League Text",
   "RightImage": "/files/img/elements/icon_microphone.png",
