@@ -353,6 +353,7 @@ body {
   width: 35px;
   height: 30px;
   top: 5px;
+  display: none;
 }
 
 /*#left_team #bomb_defuse {
