@@ -307,6 +307,10 @@ body {
   animation-iteration-count: 1;
 }
 
+#right_team > #alert.instant-animation {
+  animation-duration: 0s;
+}
+
 #alert_text {
   position: relative;
   width: 300px;
@@ -409,12 +413,11 @@ body {
 }
 
 #timers {
-  width: 320px;
+  width: 225px;
   height: 20px;
   top: 110px;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 122px);
 }
 
 #bomb_bar {
@@ -423,8 +426,39 @@ body {
   position: relative;
   background-color: var(--color-bomb);
   opacity: 0;
-  left: 50%;
-  transform: translateX(-50%);
+}
+
+#bomb_bar:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: url("/files/img/elements/icon_bomb_default.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#bomb_bar.bomb_timer_left {
+  position: absolute;
+  right: 305px;
+  top: -20px;
+  background-color: rgb(70, 232, 41);
+}
+
+#bomb_bar.bomb_timer_right {
+  position: absolute;
+  left: 320px;
+  top: -20px;
+  background-color: rgb(121, 43, 237);
+}
+
+#bomb_bar.bomb_timer_left:after {
+  right: -22px;
+}
+
+#bomb_bar.bomb_timer_right:after {
+  left: -22px;
 }
 
 #defuse_bar {
@@ -433,8 +467,39 @@ body {
   position: relative;
   background-color: var(--color-defuse);
   opacity: 0;
-  left: 50%;
-  transform: translateX(-50%);
+}
+
+#defuse_bar:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: url("/files/img/elements/icon_defuse_default.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#defuse_bar.defuse_timer_left {
+  position: absolute;
+  right: 305px;
+  top: -20px;
+  background-color: rgb(70, 232, 41);
+}
+
+#defuse_bar.defuse_timer_right {
+  position: absolute;
+  left: 305px;
+  top: -20px;
+  background-color: rgb(121, 43, 237);
+}
+
+#defuse_bar.defuse_timer_left:after {
+  right: -22px;
+}
+
+#defuse_bar.defuse_timer_right:after {
+  left: -22px;
 }
 
 #alert_middle_holder {
@@ -969,6 +1034,7 @@ body {
   width: 100%;
   height: 70px;
   background-color: var(--main-panel-color);
+  z-index: 5;
 }
 
 #players_left #box_top {

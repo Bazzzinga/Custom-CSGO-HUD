@@ -236,6 +236,11 @@ function updateRoundState(phase, round, map, previously, bomb, players) {
             updateStatePaused(phase, "timeout_ct", previously);
             break;
     }
+
+    if (round.bomb == "defused") {
+        let side = teams.left.side === "t" ? "#left_team" : "#right_team";
+        hideAlert(side);
+    }
 }
 
 function updateStateWarmup(phase) {
@@ -414,12 +419,25 @@ function updateStatePlanted(phase, round, previously) {
                 $("#players_right #box_utility").slideUp(500);
             }
             if (checkPrev(previously, "live")) {
-                let side = teams.left.side == "t" ? "#left_team" : "#right_team";
+                let side = teams.left.side === "t" ? "#left_team" : "#right_team";
+                let side_class_left = "bomb_timer_left";
+                let side_class_right = "bomb_timer_right";
+                let side_class = teams.left.side === "t" ? side_class_left : side_class_right;
+                let old_side_class = teams.left.side === "t" ? side_class_right : side_class_left;
                 hideAlertSlide(side);
                 if ($("#round_timer_text").hasClass("animated")) $("#round_timer_text").removeClass("animated");
                 if ($("#round_timer_text").hasClass("flash")) $("#round_timer_text").removeClass("flash");
+
+                if ($("#timers #bomb_bar").hasClass(old_side_class)) {
+                    $("#timers #bomb_bar").removeClass(old_side_class);
+                }
+
+                $("#timers #bomb_bar").addClass(side_class);
+                showAlert(side, "", "");
+
                 animateRoundTimer("bomb_active", false);
                 showMiddleAlert(COLOR_NEW_T, COLOR_NEW_T, "BOMB PLANTED", COLOR_NEW_T);
+
                 var wait = setTimeout(function () {
                     $("#alert_middle")
                         .css("opacity", 0)
@@ -453,7 +471,11 @@ function updateStatePlanted(phase, round, previously) {
 function updateStateDefuse(phase, bomb, players) {
     if (phase) {
         if (phase.phase == "defuse") {
-            let side = teams.left.side == "t" ? "#left_team" : "#right_team";
+            let side = teams.left.side == "ct" ? "#left_team" : "#right_team";
+            let side_class_left = "defuse_timer_left";
+            let side_class_right = "defuse_timer_right";
+            let side_class = teams.left.side === "ct" ? side_class_left : side_class_right;
+            let old_side_class = teams.left.side === "ct" ? side_class_right : side_class_left;
             if (!isDefusing) {
                 // * Checks for Kit ONCE
                 if (parseFloat(phase.phase_ends_in) > 5) {
@@ -471,12 +493,26 @@ function updateStateDefuse(phase, bomb, players) {
                 opacity: 1,
                 width: (25 / divider) * (parseFloat(phase.phase_ends_in) / defuse_seconds) + "%"
             };
+            console.log(phase.phase_ends_in, phase);
+            if (phase.phase_ends_in <= 0.2) {
+                hideAlert(side);
+            }
+
             let defusing_side = teams.left.side == "ct" ? "#left_team" : "#right_team";
+
+            if ($("#timers #defuse_bar").hasClass(old_side_class)) {
+                $("#timers #defuse_bar").removeClass(old_side_class);
+            }
+
+            $("#timers #defuse_bar").addClass(side_class);
+
             $(defusing_side + " #bomb_defuse #icon").css("opacity", hasKit ? 1 : 0);
             $(defusing_side + " #bomb_defuse #kit_bar")
                 .css("background-color", COLOR_NEW_CT)
                 .css("opacity", hasKit ? 1 : 0);
             $("#timers #defuse_bar").css(defuse_timer_css);
+
+
 
             if (bomb != null) {
                 if (bomb.state == "defusing") {
@@ -487,7 +523,9 @@ function updateStateDefuse(phase, bomb, players) {
                         }
                     });
                     // 13 characters for name
-                    showAlertSlide(defusing_side, COLOR_NEW_CT, defuser.name + " is defusing the bomb");
+                    //showAlertSlide(defusing_side, COLOR_NEW_CT, defuser.name + " is defusing the bomb");
+                    showAlertSlide(defusing_side, COLOR_NEW_CT, "");
+
                 }
             }
         }
@@ -1105,9 +1143,16 @@ function bomb(time) {
                 };
                 $("#timers #bomb_bar").css(bomb_timer_css);
                 bomb_time = bomb_time - 0.01;
+                let side = teams.left.side === "t" ? "#left_team" : "#right_team";
+
+                $(side + " #alert").addClass("instant-animation");
+                showAlert(side, "", "");
             }, 10);
         } else {
             clearInterval(bomb_timer);
+            let side = teams.left.side === "t" ? "#left_team" : "#right_team";
+            $(side + " #alert").removeClass("instant-animation");
+            hideAlert(side);
         }
     }
 }
