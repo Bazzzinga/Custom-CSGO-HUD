@@ -136,10 +136,10 @@ function updateTopPanel() {
     //#region Team Name
     $("#left_team #main")
         .text(teams.left.name.toUpperCase())
-        .css("color", teams.left.side == "ct" ? COLOR_NEW_CT : COLOR_NEW_T);
+        .css("color", "rgba(255, 255, 255, 1)"/*teams.left.side == "ct" ? COLOR_NEW_CT : COLOR_NEW_T*/);
     $("#right_team #main")
         .text(teams.right.name.toUpperCase())
-        .css("color", teams.right.side == "ct" ? COLOR_NEW_CT : COLOR_NEW_T);
+        .css("color", "rgba(255, 255, 255, 1)"/*teams.right.side == "ct" ? COLOR_NEW_CT : COLOR_NEW_T*/);
     //#endregion
 
     //#region Team Score
@@ -830,7 +830,6 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     let color = dead ? COLOR_LIGHT : COLOR_DARK;
 
     $top.find("#player_alias_text").css("color", color);
-    console.log(dead, color);
 
     $player.find("#player_image").removeClass("dead");
     if (disp_player_avatars) {
