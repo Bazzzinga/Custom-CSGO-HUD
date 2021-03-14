@@ -159,8 +159,8 @@ body {
   font-family: "Din Pro", sans-serif;
   text-align: center;
   vertical-align: text-bottom;
-  line-height: 53px;
-  font-size: 39px;
+  line-height: 42px;
+  font-size: 36px;
   font-weight: bold;
 }
 
@@ -197,31 +197,31 @@ body {
 .block1 {
   position: absolute;
   bottom: 10px;
-  left: 0px;
+  left: 5px;
 }
 
 .block2 {
   position: absolute;
   bottom: 10px;
-  left: 27px;
+  left: 29px;
 }
 
 .block3 {
   position: absolute;
   bottom: 10px;
-  left: 54px;
+  left: 52px;
 }
 
 .block4 {
   position: absolute;
   bottom: 10px;
-  left: 13.5px;
+  left: 17px;
 }
 
 .block5 {
   position: absolute;
   bottom: 10px;
-  left: 40.5px;
+  left: 41px;
 }
 
 #left_team .bar {
@@ -255,8 +255,8 @@ body {
   font-family: "Din Pro", sans-serif;
   text-align: center;
   vertical-align: text-bottom;
-  line-height: 52px;
-  font-size: 40px;
+  line-height: 42px;
+  font-size: 36px;
   font-weight: bold;
   color: var(--dev-purple);
 
@@ -2897,6 +2897,7 @@ body {
 }
 
 #bottom_logos {
+  display: none;
   position: fixed;
   left: 50%;
   margin-left: -250px;
@@ -2964,8 +2965,8 @@ body {
 
 .hexagon {
   position: relative;
-  width: 9px;
-  height: 16px;
+  width: 8px;
+  height: 14px;
   border-width: 0;
   border-color: inherit;
   background-color: inherit;
@@ -2976,8 +2977,8 @@ body {
   position: absolute;
   width: 0;
   border-color: inherit;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
 
 }
 
