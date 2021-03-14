@@ -432,9 +432,9 @@ body {
   position: absolute;
   content: "";
   display: block;
-  width: 10px;
-  height: 10px;
-  background: url("/files/img/elements/icon_bomb_default.png");
+  width: 50px;
+  height: 50px;
+  background: url("/files/img/ess/bomb.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -454,11 +454,16 @@ body {
 }
 
 #bomb_bar.bomb_timer_left:after {
-  right: -22px;
+  right: -32px;
+  top: -5px;
+  background-position: 10px -4px;
 }
 
 #bomb_bar.bomb_timer_right:after {
-  left: -22px;
+  left: -32px;
+  top: -5px;
+  background-position: -10px -4px;
+  filter: invert(42%) sepia(99%) saturate(7120%) hue-rotate(260deg) brightness(93%) contrast(101%);
 }
 
 #defuse_bar {
@@ -473,9 +478,9 @@ body {
   position: absolute;
   content: "";
   display: block;
-  width: 10px;
-  height: 10px;
-  background: url("/files/img/elements/icon_defuse_default.png");
+  width: 50px;
+  height: 50px;
+  background: url("/files/img/ess/defuse.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -495,11 +500,16 @@ body {
 }
 
 #defuse_bar.defuse_timer_left:after {
-  right: -22px;
+  right: -32px;
+  top: -5px;
+  background-position: 10px -4px;
+  filter: invert(59%) sepia(89%) saturate(515%) hue-rotate(63deg) brightness(112%) contrast(83%);
 }
 
 #defuse_bar.defuse_timer_right:after {
-  left: -22px;
+  left: -32px;
+  top: -5px;
+  background-position: -6px -3px;
 }
 
 #alert_middle_holder {
