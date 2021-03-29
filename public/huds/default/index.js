@@ -910,11 +910,14 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     if (slot >= 1 && slot <= 5) {
         if (side === "players_left") {
             $top.find("#player_alias_text").text(slot + " " + player.name);
+            $top.find("#player_alias_text_before").text(slot + " " + player.name);
         } else {
             $top.find("#player_alias_text").text(player.name + " " + slot);
+            $top.find("#player_alias_text_before").text(player.name + " " + slot);
         }
     } else {
         $top.find("#player_alias_text").text(player.name + " " + (slot - 5));
+        $top.find("#player_alias_text_before").text(player.name + " " + (slot - 5));
     }
 
     $kda_money.find("#player_kills_k").css("color", side_color);
@@ -928,6 +931,9 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     $player.find("#player_dead_deaths_text").text(stats.deaths);
 
     if (dead) {
+        if (!$player.hasClass('is_dead')) {
+            $player.addClass('is_dead');
+        }
         $bottom.find("#player_bomb_kit_image").css("opacity", 0);
         $bottom.find("#player_armor_image").css("opacity", 0);
         $top.find("#player_health_text").css("opacity", 0);
@@ -944,6 +950,9 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
             $player.find("#player_round_kills_text").css("right", "-35px");
         }
     } else {
+        if ($player.hasClass('is_dead')) {
+            $player.removeClass('is_dead');
+        }
         $bottom.find("#player_bomb_kit_image").css("opacity", 1);
         $bottom.find("#player_armor_image").css("opacity", 1);
         $top.find("#player_health_text").css("opacity", 1);
@@ -992,10 +1001,38 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     // ! gradient_double works in browser but not on the overlay
     // let gradient_double = "linear-gradient(to " + side.substr(8) + ", rgba(0,0,0,0) " + (100 - stats.health) + "%, " + health_color + "0% " + (50 - stats.health) + "%" + ", " + alt_health_color + " 100%)";
     // ! gradient_single works in browser and on the overlay
-    let gradient_single = "linear-gradient(to " + side.substr(8) + ", rgba(19, 19, 19, 1) " + (100 - stats.health) + "%, " + alt_health_color + " " + (100 - stats.health) + "%)";
+
+    let gradient_single = "linear-gradient(to " + side.substr(8) + ", rgba(19, 19, 19, 1) " + (100 - stats.health) + "%, " + side_color + " " + (100 - stats.health) + "%)";
 
     $top.find(".player_health_bar").css("background", gradient_single);
     $top.find("#player_health_text").text(stats.health);
+    $top.find("#player_health_text_before").text(stats.health);
+
+    var clipPathText = "";
+    var clipPathNick = "";
+    var clipPathNickBefore = "";
+    var w = 0;
+    var w2 = 0;
+    var w3 = 0;
+
+    if (side.substr(8) === "left") {
+        w = -226 + (stats.health / 100) * 275;
+        clipPathText = "polygon(-226px 0, " + w + "px 0, " + w + "px 100%, -226px 100%)";
+        w2 = -40 + (stats.health / 100) * 275;
+        clipPathNick = "polygon(-40px 0, " + w2 + "px 0, " + w2 + "px 100%, -40px 100%)";
+        clipPathNickBefore = "polygon(" + w2 + "px 0, 100% 0, 100% 100%, " + w2 + "px 100%)";
+    } else {
+        w = -10 + ((100 - stats.health) / 100) * 275;
+        clipPathText = "polygon(" + w + "px 0, 265px 0, 265px 100%, " + w + "px 100%)";
+        w2 = -50 + ((100 - stats.health) / 100) * 275;
+        clipPathNick = "polygon(" + w2 + "px 0, 185px 0, 185px 100%, " + w2 + "px 100%)";
+        clipPathNickBefore = "polygon(0 0, " + w2 + "px 0, " + w2 + "px 100%, 0 100%)";
+    }
+
+    $top.find("#player_health_text").css('clip-path', clipPathText);
+    $top.find("#player_alias_text").css('clip-path', clipPathNick);
+    $top.find("#player_alias_text_before").css('clip-path', clipPathNickBefore);
+
 
     let armor_icon = $bottom.find("#player_armor_image");
     armor_icon.removeClass();
