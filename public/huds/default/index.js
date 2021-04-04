@@ -856,8 +856,33 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     let health_color = stats.health <= 20 ? COLOR_RED : team == "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
     let alt_health_color = HEALTH_BAR_COLOR;//stats.health <= 20 ? COLOR_RED : team == "ct" ? COLOR_CT : COLOR_T;
     let side_color = team == "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
+    let another_side_color = team == "t" ? COLOR_NEW_CT : COLOR_NEW_T;
+    let side_filter = team == "ct" ?
+        "invert(59%) sepia(89%) saturate(515%) hue-rotate(63deg) brightness(112%) contrast(83%)" :
+        "invert(42%) sepia(99%) saturate(7120%) hue-rotate(260deg) brightness(93%) contrast(101%)";
+
+    /*let another_side_filter = team == "t" ?
+        "invert(59%) sepia(89%) saturate(515%) hue-rotate(63deg) brightness(112%) contrast(83%)" :
+        "invert(42%) sepia(99%) saturate(7120%) hue-rotate(260deg) brightness(93%) contrast(101%)";*/
+
+    //side_color - правильный !!! его надо прокинуть в тоталы (цвет иконки) и в цвет цифр хп, когда полоска неполная
+    //цвета под числом раундов!!
+    $('#players_left #player_health_text_before').css('color', another_side_color);
+    $('#players_right #player_health_text_before').css('color', side_color);
+    //#left_team #score
+    $('#left_team').attr('style', "--line-color: " + another_side_color);
+    $('#right_team').attr('style', "--line-color: " + side_color);
+
+    $('#left_team #logo').attr('style', "--line-color: " + another_side_color);
+    $('#right_team #logo').attr('style', "--line-color: " + side_color);
+
+    $('#left_team #score').css('background-color', another_side_color);
+    $('#right_team #score').css('background-color', side_color);
+
 
     let $player = $("#" + side).find("#player" + (nr + 1));
+
+    $player.closest("#player_section").parent().find("#box_monetary .icon").css("filter", side_filter);
 
     $player.find(".player_side_bar").css("background-color", dead ? COLOR_MAIN_PANEL : side_color);
 
@@ -1083,6 +1108,8 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
         .attr("src", "")
         .removeClass();
 
+    var no_primary_weapon = true;
+
     $bottom.find("#player_nade1").removeClass();
     $bottom.find("#player_nade2").removeClass();
     $bottom.find("#player_nade3").removeClass();
@@ -1118,6 +1145,7 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
                         .attr("src", "/files/img/weapons/" + name + ".png")
                         .addClass("invert")
                         .addClass(view);
+                    no_primary_weapon = false;
                 }
             }
         }
@@ -1133,6 +1161,16 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
                 .addClass("invert")
                 .addClass(view);
         }
+    }
+
+    if (no_primary_weapon) {
+        $bottom
+            .find(".player_weapon_secondary")
+            .css('display', 'block');
+    } else {
+        $bottom
+            .find(".player_weapon_secondary")
+            .css('display', 'none');
     }
 
     if (team == "ct") {

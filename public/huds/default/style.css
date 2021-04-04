@@ -2036,15 +2036,15 @@ body {
   width: 60px;
   height: 25px;
   position: relative;
-  top: 5px;
+  top: 12px;
 }
 
 #players_left .player_weapon_secondary {
-  left: 263px;
+  left: 174px;
 }
 
 #players_right .player_weapon_secondary {
-  left: 2px;
+  left: 13px;
 }
 
 #player_weapon_secondary_img {
@@ -2988,7 +2988,7 @@ body {
   position: absolute;
   width: 100%;
   height: 3px;
-  background-color: rgb(70, 232, 41);
+  background-color: var(--line-color);/*rgb(70, 232, 41);*/
   bottom: 0;
   left: 0;
 }
@@ -2998,7 +2998,7 @@ body {
   position: absolute;
   width: 100%;
   height: 3px;
-  background-color: rgb(121, 43, 237);
+  background-color: var(--line-color);/*rgb(121, 43, 237);*/
   bottom: 0;
   left: 0;
 }
