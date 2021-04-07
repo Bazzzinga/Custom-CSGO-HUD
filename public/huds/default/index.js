@@ -649,8 +649,12 @@ function updateObserved(observed) {
 function fillObserved(obs) {
     let stats = obs.getStats();
     let weapons = obs.weapons;
-    team_color = obs.team == "CT" ? COLOR_NEW_CT : COLOR_NEW_T;
-    team_color_trans = obs.team == "CT" ? COLOR_NEW_TRANS_CT : COLOR_NEW_TRANS_T;
+
+    var playerHealth = $('.player_health_bar[data-name="' + obs.name + '"]');
+    var side = playerHealth.data('side');
+
+    team_color = side == "players_left" ? COLOR_NEW_CT : COLOR_NEW_T;
+    team_color_trans = side == "players_left" ? COLOR_NEW_TRANS_CT : COLOR_NEW_TRANS_T;
     //#region Poles
     $("#obs_lane3_left_pole").css("background-color", team_color);
     $("#obs_lane3_right_pole").css("background-color", team_color);
@@ -855,7 +859,7 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     let dead = stats.health == 0;
     let health_color = stats.health <= 20 ? COLOR_RED : team == "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
     let alt_health_color = HEALTH_BAR_COLOR;//stats.health <= 20 ? COLOR_RED : team == "ct" ? COLOR_CT : COLOR_T;
-    let side_color = team == "ct" ? COLOR_NEW_CT : COLOR_NEW_T;
+    let side_color = side == "players_left" ? COLOR_NEW_CT : COLOR_NEW_T;
     let another_side_color = team == "t" ? COLOR_NEW_CT : COLOR_NEW_T;
     let side_filter = team == "ct" ?
         "invert(59%) sepia(89%) saturate(515%) hue-rotate(63deg) brightness(112%) contrast(83%)" :
@@ -865,7 +869,7 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
         "invert(59%) sepia(89%) saturate(515%) hue-rotate(63deg) brightness(112%) contrast(83%)" :
         "invert(42%) sepia(99%) saturate(7120%) hue-rotate(260deg) brightness(93%) contrast(101%)";*/
 
-    //side_color - правильный !!! его надо прокинуть в тоталы (цвет иконки) и в цвет цифр хп, когда полоска неполная
+    /*//side_color - правильный !!! его надо прокинуть в тоталы (цвет иконки) и в цвет цифр хп, когда полоска неполная
     //цвета под числом раундов!!
     $('#players_left #player_health_text_before').css('color', another_side_color);
     $('#players_right #player_health_text_before').css('color', side_color);
@@ -877,12 +881,11 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     $('#right_team #logo').attr('style', "--line-color: " + side_color);
 
     $('#left_team #score').css('background-color', another_side_color);
-    $('#right_team #score').css('background-color', side_color);
-
+    $('#right_team #score').css('background-color', side_color);*/
 
     let $player = $("#" + side).find("#player" + (nr + 1));
 
-    $player.closest("#player_section").parent().find("#box_monetary .icon").css("filter", side_filter);
+    //$player.closest("#player_section").parent().find("#box_monetary .icon").css("filter", side_filter);
 
     $player.find(".player_side_bar").css("background-color", dead ? COLOR_MAIN_PANEL : side_color);
 
@@ -1030,6 +1033,8 @@ function fillPlayer(player, nr, side, observed, phase, previously) {
     let gradient_single = "linear-gradient(to " + side.substr(8) + ", rgba(19, 19, 19, 1) " + (100 - stats.health) + "%, " + side_color + " " + (100 - stats.health) + "%)";
 
     $top.find(".player_health_bar").css("background", gradient_single);
+    $top.find(".player_health_bar").attr('data-name', player.name);
+    $top.find(".player_health_bar").attr('data-side', side);
     $top.find("#player_health_text").text(stats.health);
     $top.find("#player_health_text_before").text(stats.health);
 
